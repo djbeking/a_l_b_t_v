@@ -3,7 +3,7 @@
 // setzt den richtigen User-Agent und rewrites m3u8-URLs.
 
 const UA_DEFAULT = 'stagefright/1.2 (Linux;Android 7.1.2)';
-const PROXY_PATH = '/sw-proxy';
+const PROXY_PATH = 'sw-proxy'; // matched via pathname.endsWith
 
 // ── URL resolver ─────────────────────────────────────────────
 function resolveUrl(target, base) {
@@ -53,12 +53,12 @@ function rewriteM3U8(content, baseUrl, ua) {
         if (line.startsWith('#') && line.includes('URI="')) {
             return line.replace(/URI="([^"]+)"/g, (_, uri) => {
                 const abs = resolveUrl(uri, baseUrl);
-                return `URI="${PROXY_PATH}?url=${encodeURIComponent(abs)}&ua=${encodeURIComponent(ua)}"`;
+                return `URI="sw-proxy?url=${encodeURIComponent(abs)}&ua=${encodeURIComponent(ua)}"`;
             });
         }
         if (!line.startsWith('#')) {
             const abs = resolveUrl(line, baseUrl);
-            return `${PROXY_PATH}?url=${encodeURIComponent(abs)}&ua=${encodeURIComponent(ua)}`;
+            return `sw-proxy?url=${encodeURIComponent(abs)}&ua=${encodeURIComponent(ua)}`;
         }
         return rawLine;
     }).join('\n');
@@ -67,7 +67,7 @@ function rewriteM3U8(content, baseUrl, ua) {
 // ── Fetch handler ─────────────────────────────────────────────
 self.addEventListener('fetch', event => {
     const reqUrl = new URL(event.request.url);
-    if (reqUrl.pathname !== PROXY_PATH) return;
+    if (!reqUrl.pathname.endsWith('/sw-proxy')) return;
 
     const targetUrl = reqUrl.searchParams.get('url');
     const ua = reqUrl.searchParams.get('ua') || UA_DEFAULT;
