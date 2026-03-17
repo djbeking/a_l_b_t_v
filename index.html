@@ -8,48 +8,43 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #e0e0e0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-        header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); padding: 15px 25px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #e94560; flex-shrink: 0; }
-        header h1 { font-size: 1.5rem; color: #fff; display: flex; align-items: center; gap: 10px; }
-        header h1 span.logo { background: #e94560; padding: 5px 12px; border-radius: 8px; font-weight: 900; font-size: 0.9rem; letter-spacing: 1px; }
-        .header-info { font-size: 0.75rem; color: #888; text-align: right; }
+        header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #e94560; flex-shrink: 0; }
+        header h1 { font-size: 1.3rem; color: #fff; display: flex; align-items: center; gap: 10px; }
+        header h1 span.logo { background: #e94560; padding: 4px 10px; border-radius: 8px; font-weight: 900; font-size: 0.85rem; }
+        .header-info { font-size: 0.72rem; color: #888; text-align: right; }
         .status { color: #4ade80; font-weight: bold; }
         .status.error { color: #e94560; }
-        .badge { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; background: #333; color: #888; margin-top: 3px; transition: all 0.3s; }
+        .badge { display: inline-block; font-size: 0.68rem; padding: 2px 7px; border-radius: 4px; background: #333; color: #888; margin-top: 3px; transition: all 0.3s; }
         .badge.ok   { background: #1a3a1a; color: #4ade80; }
         .badge.fail { background: #3a1a1a; color: #e94560; }
 
-        #authBlock { background: #1a0a0a; border-bottom: 2px solid #e94560; padding: 16px 24px; display: none; align-items: center; gap: 16px; flex-shrink: 0; }
+        #authBlock { background: #1a0a0a; border-bottom: 2px solid #e94560; padding: 12px 20px; display: none; align-items: center; gap: 14px; flex-shrink: 0; }
         #authBlock.show { display: flex; }
-        #authBlock .ab-icon { font-size: 1.8rem; flex-shrink: 0; }
-        #authBlock .ab-text { flex: 1; }
-        #authBlock .ab-text strong { color: #fff; font-size: 0.9rem; display: block; margin-bottom: 3px; }
-        #authBlock .ab-text span { color: #888; font-size: 0.78rem; }
-        #authBlock .ab-text code { background: #333; padding: 1px 5px; border-radius: 3px; font-family: monospace; color: #ccc; font-size: 0.72rem; }
-        .btn-auth { background: #e94560; border: none; color: #fff; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; flex-shrink: 0; transition: background 0.2s; white-space: nowrap; }
+        #authBlock .ab-text { flex: 1; font-size: 0.82rem; color: #888; }
+        #authBlock .ab-text strong { color: #fff; display: block; margin-bottom: 2px; }
+        .btn-auth { background: #e94560; border: none; color: #fff; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; flex-shrink: 0; transition: background 0.2s; }
         .btn-auth:hover { background: #c73652; }
         .btn-auth:disabled { background: #555; cursor: default; }
 
         .main-container { display: flex; flex: 1; overflow: hidden; min-height: 0; }
-        .sidebar { width: 320px; min-width: 320px; background: #111; display: flex; flex-direction: column; border-right: 1px solid #222; }
-        .sidebar-header { padding: 12px 15px; background: #1a1a1a; border-bottom: 1px solid #222; }
-        .search-box { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #333; background: #222; color: #fff; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+        .sidebar { width: 300px; min-width: 300px; background: #111; display: flex; flex-direction: column; border-right: 1px solid #222; }
+        .sidebar-header { padding: 10px 12px; background: #1a1a1a; border-bottom: 1px solid #222; }
+        .search-box { width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #333; background: #222; color: #fff; font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
         .search-box:focus { border-color: #e94560; }
         .search-box::placeholder { color: #666; }
-        .channel-count { font-size: 0.75rem; color: #666; margin-top: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .btn-reload { background: #e94560; border: none; color: #fff; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 0.7rem; }
-        .btn-reload:hover { background: #c73652; }
-        .channel-list { flex: 1; overflow-y: auto; padding: 8px; }
-        .channel-list::-webkit-scrollbar { width: 6px; }
-        .channel-list::-webkit-scrollbar-track { background: #111; }
+        .channel-count { font-size: 0.72rem; color: #666; margin-top: 7px; display: flex; justify-content: space-between; align-items: center; }
+        .btn-reload { background: #e94560; border: none; color: #fff; padding: 3px 9px; border-radius: 5px; cursor: pointer; font-size: 0.68rem; }
+        .channel-list { flex: 1; overflow-y: auto; padding: 6px; }
+        .channel-list::-webkit-scrollbar { width: 5px; }
         .channel-list::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        .channel-list.locked .channel-item { opacity: 0.4; pointer-events: none; }
-        .channel-item { display: flex; align-items: center; padding: 10px 12px; margin-bottom: 3px; border-radius: 8px; cursor: pointer; transition: all 0.15s; gap: 12px; border: 1px solid transparent; }
+        .channel-list.locked .channel-item { opacity: 0.35; pointer-events: none; }
+        .channel-item { display: flex; align-items: center; padding: 9px 10px; margin-bottom: 2px; border-radius: 7px; cursor: pointer; transition: all 0.12s; gap: 10px; border: 1px solid transparent; }
         .channel-item:hover { background: #1a1a2e; border-color: #333; }
         .channel-item.active { background: linear-gradient(135deg, #1a1a2e, #0f3460); border-color: #e94560; }
-        .channel-item .ch-num { background: #222; color: #888; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; flex-shrink: 0; }
+        .ch-num { background: #222; color: #888; width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: bold; flex-shrink: 0; }
         .channel-item.active .ch-num { background: #e94560; color: #fff; }
-        .channel-item .ch-name { font-size: 0.85rem; font-weight: 500; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .channel-item .ch-dot { width: 8px; height: 8px; border-radius: 50%; background: #333; flex-shrink: 0; }
+        .ch-name { font-size: 0.83rem; font-weight: 500; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ch-dot { width: 7px; height: 7px; border-radius: 50%; background: #333; flex-shrink: 0; }
         .channel-item.active .ch-dot { background: #4ade80; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
@@ -57,52 +52,48 @@
         .video-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; background: #000; min-height: 0; }
         video { width: 100%; height: 100%; object-fit: contain; background: #000; display: none; }
         .placeholder { text-align: center; color: #444; }
-        .placeholder .icon { font-size: 4rem; margin-bottom: 15px; }
-        .placeholder p { font-size: 1.1rem; }
-        .placeholder .sub { font-size: 0.8rem; color: #333; margin-top: 8px; }
-        .player-controls { background: #111; padding: 12px 20px; display: flex; align-items: center; gap: 15px; border-top: 1px solid #222; flex-shrink: 0; }
+        .placeholder .icon { font-size: 3.5rem; margin-bottom: 12px; }
+        .placeholder p { font-size: 1rem; }
+        .placeholder .sub { font-size: 0.78rem; color: #333; margin-top: 6px; }
+        .player-controls { background: #111; padding: 10px 18px; display: flex; align-items: center; gap: 12px; border-top: 1px solid #222; flex-shrink: 0; }
         .now-playing { flex: 1; }
-        .now-playing .label { font-size: 0.65rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
-        .now-playing .title { font-size: 0.95rem; font-weight: 600; color: #fff; margin-top: 2px; }
-        .ctrl { background: #222; border: 1px solid #333; color: #fff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all 0.2s; }
+        .now-playing .label { font-size: 0.62rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        .now-playing .title { font-size: 0.9rem; font-weight: 600; color: #fff; margin-top: 1px; }
+        .ctrl { background: #222; border: 1px solid #333; color: #fff; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all 0.2s; }
         .ctrl:hover { background: #e94560; border-color: #e94560; }
-        .vol { width: 100px; accent-color: #e94560; }
+        .vol { width: 90px; accent-color: #e94560; }
         .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; }
         .overlay.hidden { display: none; }
-        .spinner { width: 50px; height: 50px; border: 4px solid #222; border-top-color: #e94560; border-radius: 50%; animation: spin 0.8s linear infinite; }
+        .spinner { width: 46px; height: 46px; border: 4px solid #222; border-top-color: #e94560; border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .overlay p { margin-top: 15px; color: #888; font-size: 0.9rem; }
-        .toast { position: fixed; bottom: 20px; right: 20px; background: #e94560; color: #fff; padding: 12px 20px; border-radius: 10px; font-size: 0.85rem; z-index: 100; transform: translateY(100px); opacity: 0; transition: all 0.3s; max-width: 360px; }
+        .overlay p { margin-top: 13px; color: #888; font-size: 0.88rem; }
+        .toast { position: fixed; bottom: 18px; right: 18px; background: #e94560; color: #fff; padding: 10px 18px; border-radius: 10px; font-size: 0.82rem; z-index: 100; transform: translateY(100px); opacity: 0; transition: all 0.3s; max-width: 340px; }
         .toast.show { transform: translateY(0); opacity: 1; }
 
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
-            .sidebar { width: 100%; min-width: 100%; height: 40vh; flex-shrink: 0; border-right: none; border-top: 1px solid #222; }
+            .sidebar { width: 100%; min-width: 100%; height: 38vh; flex-shrink: 0; border-right: none; border-top: 1px solid #222; }
             .player-area { flex-shrink: 0; }
-            .video-wrapper { height: 35vw; min-height: 200px; max-height: 55vh; }
-            #authBlock { flex-direction: column; }
+            .video-wrapper { height: 32vw; min-height: 180px; max-height: 52vh; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1><span class="logo">📺 TV</span> AlbAppTV Webplayer</h1>
+    <h1><span class="logo">📺 TV</span> AlbAppTV</h1>
     <div class="header-info">
-        <div>MAC: c4:4e:ac:17:51:09</div>
         <div id="statusText" class="status">⏳ Lade...</div>
-        <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:2px;">
-            <span id="swBadge" class="badge">⚙️ SW: ⏳</span>
+        <div style="display:flex;gap:5px;justify-content:flex-end;margin-top:2px;">
             <span id="authBadge" class="badge">🔑 Auth: –</span>
         </div>
     </div>
 </header>
 
 <div id="authBlock">
-    <div class="ab-icon">🔐</div>
     <div class="ab-text">
-        <strong>MAC-Aktivierung erforderlich</strong>
-        <span>Netzwerk hat sich geändert oder Session abgelaufen. <code>c4:4e:ac:17:51:09</code> muss neu aktiviert werden.</span>
+        <strong>🔐 MAC-Aktivierung erforderlich</strong>
+        Netzwerk oder Session abgelaufen — bitte neu aktivieren.
     </div>
     <button class="btn-auth" id="btnAuth" onclick="doAuth()">🔓 Aktivieren</button>
 </div>
@@ -120,11 +111,11 @@
     </div>
     <div class="player-area">
         <div class="video-wrapper" id="videoWrapper">
-            <video id="videoPlayer" controls autoplay></video>
+            <video id="videoPlayer" controls autoplay playsinline></video>
             <div class="placeholder" id="placeholder">
                 <div class="icon">📡</div>
-                <p>Wähle einen Sender aus der Liste</p>
-                <div class="sub">Playlist wird automatisch geladen</div>
+                <p>Sender aus der Liste wählen</p>
+                <div class="sub">Playlist wird geladen...</div>
             </div>
             <div class="overlay hidden" id="overlay">
                 <div class="spinner"></div>
@@ -140,7 +131,7 @@
                 <div class="label">Aktiver Sender</div>
                 <div class="title" id="nowPlaying">—</div>
             </div>
-            <span style="color:#666;font-size:0.75rem;">🔊</span>
+            <span style="color:#666;font-size:0.72rem;">🔊</span>
             <input type="range" class="vol" id="volSlider" min="0" max="100" value="80">
         </div>
     </div>
@@ -148,11 +139,6 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-// SERVICE WORKER — läuft im Browser, ersetzt Node.js Proxy
-// Fängt alle Requests auf /sw-proxy?url=... ab, setzt UA-Header,
-// rewrites m3u8-URLs, gibt CORS-Header zurück.
-// ═══════════════════════════════════════════════════════════════
 // ═══════════════════════════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════════════════════════
@@ -162,12 +148,15 @@ const CFG = {
     GIST_ID:   '6e2a1a1ebd637df9771d60f7010d2368',
     GIST_FILE: 'albapptv_playlist_auto_gist_rip4.m3u',
     AUTH_URL:  'https://middleware.shqiptv.com/?token=1Nv3n3Ncna&get=authenticate&mac=c4:4e:ac:17:51:09',
+
+    // corsproxy.io: kostenloser CORS-Proxy, kein Server nötig
+    // Setzt keine eigenen Header, leitet transparent weiter
+    CORS_PROXY: 'https://corsproxy.io/?',
 };
 
-function swProxy(url, ua) {
-    // Build URL relative to current page location
-    const base = location.href.replace(/\/[^\/]*$/, '');
-    return `${base}/sw-proxy?url=${encodeURIComponent(url)}&ua=${encodeURIComponent(ua || CFG.UA)}`;
+// Baut CORS-Proxy-URL
+function px(url) {
+    return CFG.CORS_PROXY + encodeURIComponent(url);
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -175,7 +164,7 @@ function swProxy(url, ua) {
 // ═══════════════════════════════════════════════════════════════
 let channels = [], filtered = [], currentIdx = -1;
 let hls = null;
-let authEntry = null, swOk = false, authOk = false;
+let authEntry = null, authOk = false;
 
 const $video       = document.getElementById('videoPlayer');
 const $list        = document.getElementById('channelList');
@@ -188,62 +177,34 @@ const $overlay     = document.getElementById('overlay');
 const $overlayText = document.getElementById('overlayText');
 const $volSlider   = document.getElementById('volSlider');
 const $toast       = document.getElementById('toast');
-const $swBadge     = document.getElementById('swBadge');
 const $authBadge   = document.getElementById('authBadge');
 const $authBlock   = document.getElementById('authBlock');
 const $btnAuth     = document.getElementById('btnAuth');
 
 // ═══════════════════════════════════════════════════════════════
-// SERVICE WORKER REGISTRIERUNG
-// Schreibt den SW-Code als Blob und registriert ihn.
-// Funktioniert ab Chrome/Firefox wenn die Datei über http://
-// geöffnet wird. Für file:// → Hinweis anzeigen.
-// ═══════════════════════════════════════════════════════════════
-async function registerSW() {
-    $swBadge.textContent = '⚙️ SW: ⏳';
-    if (!('serviceWorker' in navigator)) {
-        $swBadge.textContent = '⚙️ SW: ❌';
-        $swBadge.className = 'badge fail';
-        return false;
-    }
-    try {
-        const reg = await navigator.serviceWorker.register('./sw.js');
-        await navigator.serviceWorker.ready;
-        swOk = true;
-        $swBadge.textContent = '⚙️ SW: ✅';
-        $swBadge.className = 'badge ok';
-        console.log('[SW] Registriert:', reg.scope);
-        return true;
-    } catch(e) {
-        console.warn('[SW] Fehler:', e.message);
-        swOk = false;
-        $swBadge.textContent = '⚙️ SW: ❌';
-        $swBadge.className = 'badge fail';
-        return false;
-    }
-}
-
-// ═══════════════════════════════════════════════════════════════
-// AUTH
+// AUTH — über CORS-Proxy senden
 // ═══════════════════════════════════════════════════════════════
 async function doAuth(silent = false) {
     const url = authEntry?.url || CFG.AUTH_URL;
-    const ua  = authEntry?.userAgent || CFG.UA;
 
-    if (!silent) { $btnAuth.disabled = true; $btnAuth.textContent = '⏳ Aktiviere...'; }
+    if (!silent) { $btnAuth.disabled = true; $btnAuth.textContent = '⏳...'; }
     $authBadge.textContent = '🔑 Auth: ⏳';
     $authBadge.className   = 'badge';
 
-    const target = swOk ? swProxy(url, ua) : url;
     let ok = false;
     try {
-        const r = await fetch(target, { cache:'no-store', signal: AbortSignal.timeout(8000) });
+        // Auth über CORS-Proxy — setzt den UA als Query-Parameter
+        // Der Server prüft primär das Token, UA ist sekundär
+        const r = await fetch(px(url), {
+            cache: 'no-store',
+            signal: AbortSignal.timeout(8000)
+        });
         ok = r.status < 500;
         console.log('[Auth]', r.status);
     } catch(e) {
-        // Ohne SW: CORS TypeError → Request wurde trotzdem gesendet
-        ok = !swOk && e.name === 'TypeError';
         console.warn('[Auth]', e.message);
+        // Bei CORS-Fehler: Request wurde evtl. trotzdem empfangen
+        ok = false;
     }
 
     authOk = ok;
@@ -253,14 +214,14 @@ async function doAuth(silent = false) {
     if (ok) {
         $authBlock.classList.remove('show');
         $list.classList.remove('locked');
-        if (!silent) showToast('✅ MAC aktiviert — Sender verfügbar');
+        if (!silent) showToast('✅ Aktiviert — Sender verfügbar');
     } else {
         $authBlock.classList.add('show');
         $list.classList.add('locked');
-        if (!silent) showToast('❌ Aktivierung fehlgeschlagen');
+        if (!silent) showToast('❌ Aktivierung fehlgeschlagen — Nochmal versuchen');
     }
 
-    if (!silent) { $btnAuth.disabled = false; $btnAuth.textContent = '🔓 Nochmal versuchen'; }
+    if (!silent) { $btnAuth.disabled = false; $btnAuth.textContent = '🔓 Nochmal'; }
     return ok;
 }
 
@@ -268,7 +229,7 @@ async function doAuth(silent = false) {
 // PLAYLIST
 // ═══════════════════════════════════════════════════════════════
 async function loadPlaylist() {
-    setStatus('⏳ Lade Playlist...', false);
+    setStatus('⏳ Lade...', false);
     channels = []; authEntry = null;
 
     const raw = `https://gist.githubusercontent.com/malushaj/${CFG.GIST_ID}/raw/${CFG.GIST_FILE}`;
@@ -279,9 +240,9 @@ async function loadPlaylist() {
 
     if (!m3u) { setStatus('❌ Playlist nicht ladbar', true); return; }
     parseM3U(m3u);
-    if (!channels.length) { setStatus('⚠️ Keine Sender gefunden', true); return; }
+    if (!channels.length) { setStatus('⚠️ Keine Sender', true); return; }
 
-    setStatus(`✅ ${channels.length} Sender geladen`, false);
+    setStatus(`✅ ${channels.length} Sender`, false);
     filtered = [...channels];
     renderList();
     await doAuth();
@@ -291,7 +252,6 @@ async function fetchText(url) {
     try { const r = await fetch(url, {cache:'no-store'}); return r.ok ? r.text() : null; }
     catch { return null; }
 }
-
 async function fetchGistAPI() {
     try {
         const r = await fetch(`https://api.github.com/gists/${CFG.GIST_ID}`,
@@ -314,7 +274,7 @@ function parseM3U(content) {
             ua = CFG.UA;
         } else if (line.startsWith('#EXTVLCOPT:')) {
             const ei = line.indexOf('=');
-            if (ei !== -1 && line.substring(11, ei).trim().toLowerCase() === 'http-user-agent')
+            if (ei !== -1 && line.substring(11,ei).trim().toLowerCase() === 'http-user-agent')
                 ua = line.substring(ei+1).trim();
         } else if (!line.startsWith('#') && line.startsWith('http') && name) {
             if (name.startsWith('Mac aktiv')) {
@@ -344,7 +304,6 @@ function renderList() {
     });
 }
 function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-
 $search.addEventListener('input', () => {
     const q = $search.value.toLowerCase().trim();
     filtered = q ? channels.filter(c => c.name.toLowerCase().includes(q)) : [...channels];
@@ -353,7 +312,27 @@ $search.addEventListener('input', () => {
 
 // ═══════════════════════════════════════════════════════════════
 // PLAYER
+// HLS.js lädt die m3u8 über corsproxy.io.
+// corsproxy.io rewrites keine URLs in der m3u8 — HLS.js
+// würde die Segment-URLs direkt laden (CORS-Fehler).
+// Lösung: Wir geben HLS.js einen custom Loader der alle
+// Requests automatisch durch den Proxy leitet.
 // ═══════════════════════════════════════════════════════════════
+function makeProxyLoader() {
+    // HLS.js custom loader: leitet jeden Request durch corsproxy.io
+    const DefaultLoader = Hls.DefaultConfig.loader;
+    class ProxyLoader extends DefaultLoader {
+        load(context, config, callbacks) {
+            // URL durch Proxy leiten falls es eine externe URL ist
+            if (context.url && !context.url.startsWith(CFG.CORS_PROXY)) {
+                context.url = px(context.url);
+            }
+            super.load(context, config, callbacks);
+        }
+    }
+    return ProxyLoader;
+}
+
 function playChannel(idx) {
     if (!authOk) { showToast('⚠️ Erst MAC aktivieren'); $authBlock.classList.add('show'); return; }
     if (idx < 0 || idx >= channels.length) return;
@@ -366,27 +345,33 @@ function playChannel(idx) {
     showOverlay(`Lade: ${ch.name}...`);
     destroyPlayer();
 
-    const url = swOk ? swProxy(ch.url, ch.ua) : ch.url;
+    console.log(`▶ ${ch.name} | ${ch.url}`);
 
     if (Hls.isSupported()) {
         hls = new Hls({
             debug: false,
             enableWorker: true,
+            loader: makeProxyLoader(),  // ← alle Requests durch Proxy
             maxBufferLength: 30,
             liveSyncDurationCount: 3,
         });
-        hls.loadSource(url);
+        hls.loadSource(ch.url);  // Original-URL — Loader macht das Proxying
         hls.attachMedia($video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => { hideOverlay(); $video.play().catch(()=>{}); });
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            hideOverlay();
+            $video.play().catch(()=>{});
+        });
         hls.on(Hls.Events.ERROR, (_, d) => {
             if (!d.fatal) return;
+            console.error('[HLS]', d.type, d.details);
             hideOverlay();
             showToast(`❌ ${ch.name}: ${d.details}`);
         });
     } else if ($video.canPlayType('application/vnd.apple.mpegurl')) {
-        // Safari nativer HLS
-        $video.src = url;
+        // Safari: native HLS, kein Proxy nötig (kein CORS-Problem in Safari)
+        $video.src = ch.url;
         $video.addEventListener('loadedmetadata', () => { hideOverlay(); $video.play().catch(()=>{}); }, {once:true});
+        $video.addEventListener('error', () => { hideOverlay(); showToast(`❌ ${ch.name}`); }, {once:true});
     }
 
     renderList();
@@ -430,11 +415,7 @@ document.addEventListener('keydown', e => {
 $video.volume = 0.8;
 $list.classList.add('locked');
 $authBlock.classList.add('show');
-
-(async () => {
-    await registerSW();
-    await loadPlaylist();
-})();
+loadPlaylist();
 </script>
 </body>
 </html>
