@@ -165,7 +165,9 @@ const CFG = {
 };
 
 function swProxy(url, ua) {
-    return `/sw-proxy?url=${encodeURIComponent(url)}&ua=${encodeURIComponent(ua || CFG.UA)}`;
+    // Build URL relative to current page location
+    const base = location.href.replace(/\/[^\/]*$/, '');
+    return `${base}/sw-proxy?url=${encodeURIComponent(url)}&ua=${encodeURIComponent(ua || CFG.UA)}`;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -205,7 +207,7 @@ async function registerSW() {
         return false;
     }
     try {
-        const reg = await navigator.serviceWorker.register('./sw.js', { scope: './' });
+        const reg = await navigator.serviceWorker.register('./sw.js');
         await navigator.serviceWorker.ready;
         swOk = true;
         $swBadge.textContent = '⚙️ SW: ✅';
